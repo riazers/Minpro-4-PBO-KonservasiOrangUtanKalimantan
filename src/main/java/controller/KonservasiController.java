@@ -46,9 +46,15 @@ public class KonservasiController {
         String nama = view.inputString("Nama Orangutan: ");
         int umur = view.inputInteger("Estimasi Umur (Tahun): ");
 
-        view.tampilkanPesan("Jenis Kelamin: 1. Jantan | 2. Betina");
-        int jk = view.inputInteger("Pilih [1/2]: ");
-
+        int jk;
+        do {
+            view.tampilkanPesan("Jenis Kelamin: 1. Jantan | 2. Betina");
+            jk = view.inputInteger("Pilih [1/2]: ");
+            if (jk != 1 && jk != 2) {
+            view.tampilkanError("Pilihan tidak valid! Masukkan 1 atau 2.");
+            }
+        } while (jk != 1 && jk != 2);
+        
         Orangutan orangutan;
         if (jk == 1) {
             double cheekPads = view.inputDouble("Ukuran Cheek Pads (cm): ");
@@ -169,36 +175,50 @@ public class KonservasiController {
 
     // HELPER
     private LokasiHabitat pilihLokasi() {
-        view.tampilkanPesan("\nPilih Wilayah Konservasi di Kalimantan:");
-        view.tampilkanPesan("1. TN Tanjung Puting (Kalimantan Tengah)");
-        view.tampilkanPesan("2. TN Sebangau (Kalimantan Tengah)");
-        view.tampilkanPesan("3. TN Betung Kerihun (Kalimantan Barat)");
-        view.tampilkanPesan("4. TN Kutai (Kalimantan Timur)");
-        int opsi = view.inputInteger("Pilih Wilayah [1-4]: ");
+    view.tampilkanPesan("\nPilih Wilayah Konservasi di Kalimantan:");
+    view.tampilkanPesan("1. TN Tanjung Puting (Kalimantan Tengah)");
+    view.tampilkanPesan("2. TN Sebangau (Kalimantan Tengah)");
+    view.tampilkanPesan("3. TN Betung Kerihun (Kalimantan Barat)");
+    view.tampilkanPesan("4. TN Kutai (Kalimantan Timur)");
 
-        switch (opsi) {
-            case 1: return new LokasiHabitat("LOC-01", "TN Tanjung Puting", "Kalimantan Tengah", "Taman Nasional");
-            case 2: return new LokasiHabitat("LOC-02", "TN Sebangau", "Kalimantan Tengah", "Taman Nasional");
-            case 3: return new LokasiHabitat("LOC-03", "TN Betung Kerihun", "Kalimantan Barat", "Taman Nasional");
-            default: return new LokasiHabitat("LOC-04", "TN Kutai", "Kalimantan Timur", "Taman Nasional");
+    int opsi;
+    do {
+        opsi = view.inputInteger("Pilih Wilayah [1-4]: ");
+        if (opsi < 1 || opsi > 4) {
+            view.tampilkanError("Pilihan tidak valid! Masukkan angka 1-4.");
         }
+    } while (opsi < 1 || opsi > 4);
+
+    switch (opsi) {
+        case 1: return new LokasiHabitat("LOC-01", "TN Tanjung Puting", "Kalimantan Tengah", "Taman Nasional");
+        case 2: return new LokasiHabitat("LOC-02", "TN Sebangau", "Kalimantan Tengah", "Taman Nasional");
+        case 3: return new LokasiHabitat("LOC-03", "TN Betung Kerihun", "Kalimantan Barat", "Taman Nasional");
+        default: return new LokasiHabitat("LOC-04", "TN Kutai", "Kalimantan Timur", "Taman Nasional");
     }
+}
 
     private String pilihStatus() {
-        view.tampilkanPesan("\nStatus Tahap Konservasi:");
-        view.tampilkanPesan("1. Karantina Medis");
-        view.tampilkanPesan("2. Sekolah Hutan (Forest School)");
-        view.tampilkanPesan("3. Pulau Pra-Rilis");
-        view.tampilkanPesan("4. Liar / Rilis Penuh");
-        int opsi = view.inputInteger("Pilih Status [1-4]: ");
+    view.tampilkanPesan("\nStatus Tahap Konservasi:");
+    view.tampilkanPesan("1. Karantina Medis");
+    view.tampilkanPesan("2. Sekolah Hutan (Forest School)");
+    view.tampilkanPesan("3. Pulau Pra-Rilis");
+    view.tampilkanPesan("4. Liar / Rilis Penuh");
 
-        switch (opsi) {
-            case 1: return "Karantina Medis";
-            case 2: return "Sekolah Hutan";
-            case 3: return "Pra-Rilis";
-            default: return "Liar / Rilis";
+    int opsi;
+    do {
+        opsi = view.inputInteger("Pilih Status [1-4]: ");
+        if (opsi < 1 || opsi > 4) {
+            view.tampilkanError("Pilihan tidak valid! Masukkan angka 1-4.");
         }
+    } while (opsi < 1 || opsi > 4);
+
+    switch (opsi) {
+        case 1: return "Karantina Medis";
+        case 2: return "Sekolah Hutan";
+        case 3: return "Pra-Rilis";
+        default: return "Liar / Rilis";
     }
+}
 
     private CatatanRehabilitasi cariDataById(String id) {
         for (CatatanRehabilitasi c : daftarKonservasi) {

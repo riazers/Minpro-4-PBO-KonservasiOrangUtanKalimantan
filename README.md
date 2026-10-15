@@ -24,13 +24,18 @@
 ### - [14. Kesimpulan Mini Project 4](15-kesimpulan-mini-project-4)
 
 ## 1. Deskripsi Program
-**Sistem Konservasi & Rehabilitasi Orangutan Kalimantan** adalah aplikasi berbasis **Java CLI** lanjutan yang dikembangkan dari **Mini Project 1**. Program ini digunakan untuk mendata, memantau, dan mengelola tahapan rehabilitasi orangutan di berbagai Taman Nasional di Pulau Kalimantan. Program menerapkan **CRUD penuh** dengan pendekatan **Object-Oriented Programming (OOP)** serta **arsitektur MVC (Model–View–Controller)**.
+Sistem Konservasi & Rehabilitasi Orangutan Kalimantan adalah aplikasi berbasis Java CLI lanjutan yang dikembangkan dari Mini Project sebelumnya. **Program ini digunakan untuk mendata, memantau, dan mengelola tahapan rehabilitasi orangutan di berbagai Taman Nasional di Pulau Kalimantan.** Program menerapkan CRUD penuh dengan pendekatan Object-Oriented Programming (OOP) serta arsitektur MVC (Model–View–Controller).
 
-Pada Mini Project 2 ini ditambahkan:
-- **Inheritance**: `Orangutan` (superclass) dengan 2 subclass `OrangutanJantan` dan `OrangutanBetina`.
-- **Polymorphism**: method `getJenisKelamin()`, `getKategori()`, dan `getInfoTambahan()` di-*override* oleh subclass, serta *casting* runtime (`instanceof`) pada saat update.
-- **Struktur MVC**: pemisahan `model`, `view`, `controller`, `main`.
-- **Dummy data awal**: 2 data orangutan langsung tampil saat fitur Read pertama kali dibuka.
+Pada Mini Project 4 ini, **program diintegrasikan ke database MySQL sehingga seluruh data tersimpan secara permanen (tidak lagi hilang saat program ditutup, seperti pada Mini Project 3 yang masih menggunakan ArrayList di memori).** Database dikelola melalui phpMyAdmin (Laragon) dan diimport dari file konservasi_db.sql. Adapun yang ditambahkan pada Mini Project 4:
+
+* Koneksi JDBC — class config.Koneksi sebagai jembatan koneksi antara program Java dan MySQL (jdbc:mysql://localhost:3306/konservasi_db).
+* DAO (Data Access Object) — class dao.KonservasiDAO menjadi satu-satunya pintu eksekusi query SQL, sehingga Controller bersih dari kode database.
+* PreparedStatement — seluruh query (CREATE, READ, UPDATE, DELETE) menggunakan placeholder ? untuk mencegah SQL Injection dan menjaga type-safety.
+* Transaction Management — operasi Create memakai setAutoCommit(false), commit(), dan rollback() agar insert ke 2 tabel bersifat atomik.
+* Dummy data via database — 2 data awal (Boni – Jantan, Sisi – Betina) diimport langsung dari file .sql melalui phpMyAdmin (bukan lewat kode), sehingga fitur Read langsung menampilkan data saat pertama kali dijalankan.
+* Relasi 3 tabel — orangutan, lokasi_habitat, dan catatan_rehabilitasi yang terhubung melalui foreign key; fitur Read menggabungkannya dengan query JOIN.
+  
+Seluruh konsep OOP dari Mini Project sebelumnya tetap dipertahankan — inheritance (Orangutan superclass dengan subclass OrangutanJantan dan OrangutanBetina), polymorphism (method overriding + instanceof casting), encapsulation, abstraction, access modifier, interface, serta validasi input dua lapis (try-catch di View + do-while di Controller).
 
 
 ## 2. Penjelasan Alur Program

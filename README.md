@@ -18,7 +18,7 @@
 ### - [8. Penerapan Abstraction](8.-penerapan-abstraction)
 ### - [9. Penerapan Access Modifer](9.-penerapan-access-modifier)
 ### - [10. Penerapan Interface](10.-penerapan-interface)
-### - [11. Integrasi Database (JDBC & DAO)(12-integrasi-database-jdbc--dao)
+### - [11. Integrasi Database (JDBC & DAO)(11-integrasi-database-jdbc--dao)
 ### - [12. Skema Database & Dummy Data (.sql)](13-skema-database--dummy-data-sql)
 ### - [13. Output Program](14-output-program)
 ### - [14. Kesimpulan Mini Project 4](15-kesimpulan-mini-project-4)

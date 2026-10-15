@@ -1,4 +1,4 @@
-# Minpro-3-PBO-KonservasiOrangutanKalimantan
+# Minpro-4-PBO-KonservasiOrangutanKalimantan
 
     Dibuat oleh: Riaz Ramadhan Al Fattah
     NIM: 2509116106
@@ -18,8 +18,10 @@
 ### - [8. Penerapan Abstraction](8.-penerapan-abstraction)
 ### - [9. Penerapan Access Modifer](9.-penerapan-access-modifier)
 ### - [10. Penerapan Interface](10.-penerapan-interface)
-### - [11. Output Program](11.-output-program)
-### - [12. Kesimpulan](12.-kesimpulan)
+### - [11. Integrasi Database (JDBC & DAO)(12-integrasi-database-jdbc--dao)
+### - [12. Skema Database & Dummy Data (.sql)](13-skema-database--dummy-data-sql)
+### - [13. Output Program](14-output-program)
+### - [14. Kesimpulan Mini Project 4](15-kesimpulan-mini-project-4)
 
 ## 1. Deskripsi Program
 **Sistem Konservasi & Rehabilitasi Orangutan Kalimantan** adalah aplikasi berbasis **Java CLI** lanjutan yang dikembangkan dari **Mini Project 1**. Program ini digunakan untuk mendata, memantau, dan mengelola tahapan rehabilitasi orangutan di berbagai Taman Nasional di Pulau Kalimantan. Program menerapkan **CRUD penuh** dengan pendekatan **Object-Oriented Programming (OOP)** serta **arsitektur MVC (Model–View–Controller)**.
@@ -261,86 +263,9 @@ Manfaat interface dalam program ini:
 
 ---
 
-## 11. Output Program
-
-**1. Menu Utama**
-Tampilan awal saat program dijalankan. Terdapat 5 pilihan menu; dummy data sudah otomatis tersedia di memori.
-
-<img width="470" height="207" alt="image" src="https://github.com/user-attachments/assets/06691a50-b5ec-42ff-b5d1-5a74963daf8a" />
 
 
-----
-**2. Fitur Read — Menampilkan Dummy Data Awal**
-Saat memilih menu 2, tabel langsung menampilkan 2 data dummy (Boni – Jantan, Sisi – Betina) tanpa input manual. Kolom Kategori, Gender, dan Info Tambahan adalah hasil method overriding (polymorphism).
-
-<img width="1376" height="377" alt="image" src="https://github.com/user-attachments/assets/438f41b8-b2d0-4c9b-8ee0-5ba1c2806320" />
-
-
-
-----
-**3. Fitur Create Jantan — Validasi Input**
-Contoh registrasi Orangutan Jantan. Sengaja dimasukkan input yang salah lebih dulu: jenis kelamin `8` dan wilayah `abc` — program menolak dan meminta ulang (do-while + try-catch) sampai input benar (pilih 1, lalu isi Cheek Pads).
-
-<img width="455" height="387" alt="image" src="https://github.com/user-attachments/assets/0352b6d4-b502-4e22-b0fe-3bd928d6df0b" />
-
-<img width="455" height="340" alt="image" src="https://github.com/user-attachments/assets/b95ef160-44fa-4a9f-a0eb-0c4ea36e3f0a" />
-
-<img width="486" height="340" alt="image" src="https://github.com/user-attachments/assets/6786a67a-abdc-4877-ad7d-c6c70ac366a0" />
-
-
-----
-**4. Fitur Create Betina — Registrasi Orangutan Betina**
-Pengisian data Betina: nama, umur, jenis kelamin (pilih 2), lalu Jumlah Anak.
-
-<img width="492" height="442" alt="image" src="https://github.com/user-attachments/assets/797ec475-5c87-49e6-8644-a82152957ac2" />
-
-
-----
-**5. Fitur Read — Setelah Penambahan Data**
-Seluruh data (dummy + baru) tampil. Kolom Info Tambahan Jantan (Cheek Pads) dan Betina (Jumlah Anak) berbeda — bukti polymorphism bekerja.
-
-<img width="1222" height="377" alt="image" src="https://github.com/user-attachments/assets/99d71713-01c0-4254-b63e-aca89add9533" />
-
-
-----
-**6. Fitur Update — Memilih ID & Submenu**
-User memilih menu 3, memasukkan ID catatan (mis. C2), lalu muncul submenu update [1-6].
-
-<img width="1227" height="563" alt="image" src="https://github.com/user-attachments/assets/b5bfb58b-5381-4acf-82e6-274fa00f6f1b" />
-
-
-----
-**7. Fitur Update — Mengubah Info Khusus (instanceof + casting)**
-Opsi 3 mendeteksi tipe runtime: Jantan → cheek pads baru; Betina → jumlah anak baru.
-
-<img width="397" height="240" alt="image" src="https://github.com/user-attachments/assets/891e9965-09b7-40d0-bada-fe8635c5fbb6" />
-
-<img width="392" height="236" alt="image" src="https://github.com/user-attachments/assets/9107794f-3f6a-41c3-9a97-945036d3a3bb" />
-
-
-----
-**8. Fitur Update — Mengubah Status Kesehatan**
-Opsi 5. Pilih status baru [1-4]; input di luar rentang ditolak. Perhatikan opsi 4 kini tersimpan sebagai **"Liar / Rilis Penuh"** sesuai teks menu (perbaikan bug Mini Project 2).
-
-<img width="405" height="347" alt="image" src="https://github.com/user-attachments/assets/4134a55e-1658-4cc3-ac36-f1af0c69eb7d" />
-
-
-----
-**9. Fitur Delete — Menghapus Data**
-Menu 4: masukkan ID (mis. C2) → data dihapus dari ArrayList, muncul pesan sukses, dan tabel berikutnya sudah tidak memuat data tersebut.
-
-<img width="1227" height="357" alt="image" src="https://github.com/user-attachments/assets/e7d452aa-b173-4194-84a7-874323f5a6ad" />
-
-<img width="1216" height="606" alt="image" src="https://github.com/user-attachments/assets/3eafa819-d6d1-4fb8-9723-61141f708222" />
-
-
-----
-**10. Keluar Program**
-Menu 5: pesan penutup ditampilkan, Scanner ditutup, program berakhir.
-
-<img width="595" height="352" alt="image" src="https://github.com/user-attachments/assets/317771bf-e544-4c6f-8512-526023a8ec31" />
-
-## 12. Integrasi Database (JDBC & DAO) 
+## 11. Integrasi Database (JDBC & DAO) 
 
 ### a. Koneksi JDBC (`config/Koneksi.java`)
 Class `Koneksi` menyediakan satu objek `Connection` yang dipakai bersama (singleton sederhana). URL menunjuk ke database `konservasi_db` di MySQL bawaan **Laragon** (phpMyAdmin):
@@ -390,13 +315,10 @@ DAO memisahkan logika akses data dari logika bisnis. Controller hanya memanggil 
 d. Resource management
 Semua DAO memakai try-with-resources sehingga Connection, PreparedStatement, dan ResultSet otomatis tertutup — tidak ada connection leak.
 
+
+## Bagian 12 — Skema Database & Dummy Data
+
 ```java
-
-## Bagian 14 — Skema Database & Dummy Data
-
-```markdown
-## 14. Skema Database & Dummy Data (.sql)
-
 Database `konservasi_db` terdiri dari **3 tabel** dengan relasi foreign key:
 
       orangutan (PK id_orangutan) ──< catatan_rehabilitasi (PK id_catatan, FK id_orangutan, FK id_lokasi) >── lokasi_habitat (PK id_lokasi)
@@ -425,7 +347,73 @@ INSERT INTO catatan_rehabilitasi VALUES
 File konservasi_db.sql diimport melalui phpMyAdmin (Laragon): buat database konservasi_db → tab Import → pilih file .sql → Go. Setelah itu, fitur Read langsung menampilkan data tanpa input manual.
 
 
-## 15. Kesimpulan
+## Bagian 13 — Output Program Mini Project 4 (panduan screenshot)
+
+Sesuai permintaan, ini daftar screenshot yang perlu kamu ambil — urutannya sengaja dirancang untuk **membuktikan data tersimpan permanen di database**:
+
+**1. Struktur Database di phpMyAdmin (Laragon)**
+Bukti database sudah terimport: tampil database `konservasi_db` dengan 3 tabel (orangutan, catatan_rehabilitasi, lokasi_habitat) dan struktur kolomnya.
+<img width="1037" height="355" alt="image" src="https://github.com/user-attachments/assets/27b51c41-fec7-41a1-97f2-c11bdb4d5b47" />
+
+
+----
+**2. Dummy Data di phpMyAdmin**
+Isi tabel `orangutan` dan `catatan_rehabilitasi` — terlihat data dummy Boni (Jantan) & Sisi (Betina). Ini bukti dummy data diisi **lewat database, bukan kode**.
+<img width="835" height="268" alt="image" src="https://github.com/user-attachments/assets/e8498c69-722d-4d5d-b42b-68847042db21" />
+
+
+----
+**3. Menu Utama Program**
+Program berhasil terhubung ke database dan menampilkan menu 1-5.
+<img width="466" height="198" alt="image" src="https://github.com/user-attachments/assets/abca3d17-5634-4f9d-82ad-2996231a12fc" />
+
+
+----
+**4. Fitur Read — Data Langsung Tampil dari Database**
+Saat memilih menu 2, tabel menampilkan 2 dummy data (Boni, Sisi) yang diambil langsung dari MySQL via `getAllCatatan()` — bukan dari ArrayList.
+<img width="1225" height="328" alt="image" src="https://github.com/user-attachments/assets/a1b835e8-6902-4935-bd10-5ce93712e7b6" />
+
+
+----
+**5. Fitur Create — Data Masuk ke Database**
+Registrasi orangutan baru, lalu buka phpMyAdmin → tabel `orangutan` & `catatan_rehabilitasi` → baris baru muncul. Dua screenshot berdampingan membuktikan insert berhasil.
+<img width="596" height="491" alt="image" src="https://github.com/user-attachments/assets/79bc5e95-e586-48b8-8f3a-21db03ac1e64" />
+
+<img width="837" height="327" alt="image" src="https://github.com/user-attachments/assets/d0e12bb2-a3c1-4e82-92d1-5680222864fa" />
+
+
+----
+**6. Fitur Update — Perubahan Tersimpan Permanen**
+Ubah nama/status salah satu data lewat program, lalu tunjukkan phpMyAdmin yang nilainya juga berubah.
+<img width="1225" height="427" alt="image" src="https://github.com/user-attachments/assets/d7455af1-57a5-4292-8e6f-7fceb4d29a52" />
+<img width="447" height="217" alt="image" src="https://github.com/user-attachments/assets/0adfa212-f8e1-42b0-8710-769133c0aac0" />
+
+
+
+<img width="840" height="285" alt="image" src="https://github.com/user-attachments/assets/a171e07b-319b-4cab-a301-b88a0eee5f65" />
+
+
+----
+**7. Bukti Persistensi — Tutup & Jalankan Ulang Program**
+Tutup program (menu 5), jalankan ulang, buka menu 2 → data hasil Create/Update **tetap ada**. Ini pembeda utama MP4 dari MP3 (yang datanya hilang karena hanya di ArrayList).
+<img width="1251" height="447" alt="image" src="https://github.com/user-attachments/assets/ebf8ef24-2f71-4067-ab65-bae74fcf4ef7" />
+
+
+----
+**8. Fitur Delete — Data Hilang dari Database**
+Hapus satu catatan lewat program, lalu tampilkan phpMyAdmin → baris catatan tersebut sudah tidak ada.
+<img width="1221" height="396" alt="image" src="https://github.com/user-attachments/assets/a482c425-928d-41d4-8c2c-fa8bbb06772a" />
+
+<img width="840" height="261" alt="image" src="https://github.com/user-attachments/assets/e5c4ec9a-b4ba-4a6e-8b8c-c80d4586bd89" />
+
+
+----
+**9. Keluar Program**
+Pesan penutup, Scanner ditutup, program berakhir.
+<img width="610" height="360" alt="image" src="https://github.com/user-attachments/assets/9151fddd-3e4d-4f2a-ac44-4bb4bf0749a8" />
+
+
+## 14. Kesimpulan
 
 Sistem Konservasi & Rehabilitasi Orangutan Kalimantan pada Mini Project 3 ini berhasil dikembangkan dari Mini Project sebelumnya dengan menerapkan seluruh ketentuan dan nilai tambah secara lengkap:
 
@@ -437,7 +425,14 @@ Sistem Konservasi & Rehabilitasi Orangutan Kalimantan pada Mini Project 3 ini be
 - **Nilai tambah: Interface** — KonservasiInterface berisi kontrak CRUD yang diimplementasikan KonservasiController dengan implements, menjamin seluruh operasi tersedia sejak kompilasi dan memperkuat loose coupling dengan Main.
 - **Arsitektur MVC** — pemisahan model, view, controller, dan main membuat kode mudah dirawat dan dikembangkan.
 
-**Perbaikan spesifik dari Mini Project 2 juga telah diterapkan: teks opsi 4 pada pilihStatus() kini tersimpan sebagai "Liar / Rilis Penuh" sesuai teks menu, dan bug input di luar rentang kini tertangani oleh perulangan validasi.**
+- **Koneksi JDBC** — `Koneksi.java` menyediakan koneksi ke database `konservasi_db` (MySQL bawaan Laragon, diakses lewat phpMyAdmin).
+- **PreparedStatement** — seluruh query memakai placeholder `?`, mencegah SQL Injection dan menjaga type-safety.
+- **DAO Pattern** — `KonservasiDAO` menjadi satu-satunya pintu eksekusi SQL; Controller sepenuhnya bersih dari kode database (separation of concerns dalam MVC tetap terjaga).
+- **Transaction management** — Create memakai `setAutoCommit(false)` + `commit()`/`rollback()` agar insert ke 2 tabel bersifat atomik.
+- **Dummy data via .sql** — 2 data awal (Boni, Sisi) diimport langsung ke database melalui phpMyAdmin, sesuai ketentuan (tidak diisi lewat kode).
+- **Persistensi terbukti** — data hasil Create/Update tetap ada setelah program ditutup dan dijalankan ulang, serta tercekap langsung di phpMyAdmin.
 
-**Seluruh fitur CRUD berjalan baik — data dapat dibuat (Create), ditampilkan dalam format tabel (Read), diperbarui melalui submenu (Update), dan dihapus berdasarkan ID (Delete) — dengan 2 dummy data otomatis tersedia sejak program dijalankan.** Dengan demikian, tujuan Mini Project 3 — penguasaan konsep OOP lanjutan (inheritance, polymorphism, abstraction, access modifier, validasi, interface) dalam kerangka MVC — telah tercapai secara penuh.
+
+
+Seluruh fitur CRUD kini beroperasi penuh terhadap database: **Create** (insert 2 tabel dengan transaction), **Read** (JOIN 3 tabel), **Update** (pembaharuan tersimpan permanen — perbaikan dari draf awal yang hanya mengubah objek di memori), dan **Delete** (dengan pengecekan baris terpengaruh). Dengan demikian, tujuan Mini Project 4 — integrasi JDBC + PreparedStatement + DAO + dummy data via .sql — telah tercapai secara penuh.
 

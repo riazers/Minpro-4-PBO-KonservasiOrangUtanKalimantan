@@ -4,18 +4,10 @@
 package model;
 
 /**
- * Superclass Orangutan.
- * Menyimpan atribut umum yang dimiliki semua orangutan.
- * Menerapkan encapsulation (private + getter/setter).
- * ABSTRACTION: Orangutan adalah ABSTRACT CLASS.
- * Tidak bisa diinstansiasi langsung — hanya bisa lewat subclass
- * (OrangutanJantan / OrangutanBetina).
- * 
- * @author riaza
+ * ABSTRACTION: Orangutan adalah abstract class.
+ * Tidak bisa diinstansiasi langsung — hanya lewat subclass.
  */
-
-public abstract class Orangutan implements InfoKonservasi {
-    // Encapsulation
+public abstract class Orangutan {
     private String idOrangutan;
     private String nama;
     private int umurTahun;
@@ -26,7 +18,6 @@ public abstract class Orangutan implements InfoKonservasi {
         this.umurTahun = umurTahun;
     }
 
-    // Getter & Setter
     public String getIdOrangutan() { return idOrangutan; }
     public void setIdOrangutan(String idOrangutan) { this.idOrangutan = idOrangutan; }
 
@@ -36,14 +27,8 @@ public abstract class Orangutan implements InfoKonservasi {
     public int getUmurTahun() { return umurTahun; }
     public void setUmurTahun(int umurTahun) { this.umurTahun = umurTahun; }
 
-    // ABSTRACT METHODS — wajib di-override oleh subclass
+    // ABSTRACT METHODS — wajib di-override subclass
     public abstract String getJenisKelamin();
     public abstract String getKategori();
     public abstract String getInfoTambahan();
-
-    // Implementasi method dari interface (Polymorphism)
-    @Override
-    public String getRingkasan() {
-        return String.format("%s bernama %s (%d thn) - %s", getKategori(), nama, umurTahun, getInfoTambahan());
-    }
 }

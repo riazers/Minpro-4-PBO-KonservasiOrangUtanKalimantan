@@ -9,18 +9,16 @@ import view.KonservasiView.CatatanRehabilitasiWrapper;
 public class KonservasiController {
     private KonservasiDAO dao;
     private KonservasiView view;
-    private int counter;
 
     public KonservasiController(KonservasiView view) {
         this.view = view;
         this.dao = new KonservasiDAO();
-        this.counter = dao.getAllCatatan().size() + 1;
     }
 
-    // CREATE
+    // ===== CREATE =====
     public void tambahData() {
         view.tampilkanPesan("\n--- Registrasi Orangutan Baru ---");
-        String idCatatan = "C" + counter++;
+        String idCatatan = "C" + System.currentTimeMillis() % 10000;
         String idOrangutan = "ID-" + (System.currentTimeMillis() % 1000);
 
         String nama = view.inputString("Nama Orangutan: ");
@@ -47,12 +45,11 @@ public class KonservasiController {
         LokasiHabitat lokasi = pilihLokasi();
         String status = pilihStatus();
 
-        CatatanRehabilitasi catatanBaru = new CatatanRehabilitasi(idCatatan, orangutan, lokasi, status);
-        dao.insertCatatan(catatanBaru);
+        dao.insertCatatan(new CatatanRehabilitasi(idCatatan, orangutan, lokasi, status));
         view.tampilkanPesan("Sukses: Data berhasil disimpan ke database dengan Kode Registrasi: " + idCatatan);
     }
 
-    // READ
+    // ===== READ =====
     public void tampilkanData() {
         view.tampilkanHeaderTabel();
         List<CatatanRehabilitasi> daftarKonservasi = dao.getAllCatatan();
@@ -77,7 +74,7 @@ public class KonservasiController {
         view.tampilkanFooterTabel();
     }
 
-    // UPDATE
+    // ===== UPDATE (revisi: setiap perubahan dipersist ke database) =====
     public void updateData() {
         tampilkanData();
         List<CatatanRehabilitasi> daftar = dao.getAllCatatan();
@@ -105,29 +102,34 @@ public class KonservasiController {
             switch (pilihanUpdate) {
                 case 1:
                     target.getOrangutan().setNama(view.inputString("Nama baru: "));
-                    view.tampilkanPesan("Nama berhasil diubah.");
+                    dao.updateOrangutan(target);          // ← persist ke DB
+                    view.tampilkanPesan("Nama berhasil diubah (tersimpan di database).");
                     break;
                 case 2:
                     target.getOrangutan().setUmurTahun(view.inputInteger("Umur baru (tahun): "));
-                    view.tampilkanPesan("Umur berhasil diubah.");
+                    dao.updateOrangutan(target);          // ← persist ke DB
+                    view.tampilkanPesan("Umur berhasil diubah (tersimpan di database).");
                     break;
                 case 3:
                     if (target.getOrangutan() instanceof OrangutanJantan) {
                         OrangutanJantan oj = (OrangutanJantan) target.getOrangutan();
                         oj.setUkuranCheekPads(view.inputDouble("Cheek Pads baru (cm): "));
-                    } else if (target.getOrangutan() instanceof OrangutanBetina) {
+                    } else {
                         OrangutanBetina ob = (OrangutanBetina) target.getOrangutan();
                         ob.setJumlahAnak(view.inputInteger("Jumlah anak baru: "));
                     }
-                    view.tampilkanPesan("Info khusus berhasil diubah.");
+                    dao.updateOrangutan(target);          // ← persist ke DB
+                    view.tampilkanPesan("Info khusus berhasil diubah (tersimpan di database).");
                     break;
                 case 4:
                     target.setLokasi(pilihLokasi());
-                    view.tampilkanPesan("Lokasi berhasil diubah.");
+                    dao.updateCatatan(target);            // ← persist ke DB
+                    view.tampilkanPesan("Lokasi berhasil diubah (tersimpan di database).");
                     break;
                 case 5:
                     target.setStatusKesehatan(pilihStatus());
-                    view.tampilkanPesan("Status berhasil diubah.");
+                    dao.updateCatatan(target);            // ← persist ke DB
+                    view.tampilkanPesan("Status berhasil diubah (tersimpan di database).");
                     break;
                 case 6:
                     view.tampilkanPesan("Update selesai.");
@@ -138,18 +140,21 @@ public class KonservasiController {
         } while (pilihanUpdate != 6);
     }
 
-    // DELETE
+    // ===== DELETE (revisi: cek hasil, tidak selalu bilang sukses) =====
     public void hapusData() {
         tampilkanData();
         List<CatatanRehabilitasi> daftar = dao.getAllCatatan();
         if (daftar.isEmpty()) return;
 
         String idCari = view.inputString("\nMasukkan ID Catatan yang ingin dihapus: ");
-        dao.deleteCatatan(idCari);
-        view.tampilkanPesan("Data catatan " + idCari + " berhasil dihapus!");
+        if (dao.deleteCatatan(idCari)) {
+            view.tampilkanPesan("Data catatan " + idCari + " berhasil dihapus dari database!");
+        } else {
+            view.tampilkanError("Data dengan ID " + idCari + " tidak ditemukan.");
+        }
     }
 
-    // HELPER METHODS
+    // ===== HELPER =====
     private LokasiHabitat pilihLokasi() {
         view.tampilkanPesan("\nPilih Wilayah Konservasi di Kalimantan:");
         view.tampilkanPesan("1. TN Tanjung Puting (Kalimantan Tengah)");
@@ -192,7 +197,7 @@ public class KonservasiController {
             case 1: return "Karantina Medis";
             case 2: return "Sekolah Hutan";
             case 3: return "Pra-Rilis";
-            default: return "Liar / Rilis";
+            default: return "Liar / Rilis Penuh";   // ← revisi: sesuai teks menu
         }
     }
 
